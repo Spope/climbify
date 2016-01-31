@@ -1,0 +1,24 @@
+#svg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black;
+}
+
+.circle {
+    cursor: pointer;
+    .contour{
+        animation: contour 5s linear infinite;
+        transform-origin: 50% 50%;
+        display: inline-block;
+    }
+}
+
+@keyframes contour {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

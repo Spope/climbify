@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    
+    <link type="text/css" rel="stylesheet" href="style/css/main.css" />
+
+    <script type="text/javascript" src="js/path.js"></script>
+    <script type="text/javascript" src="js/Drawer.js"></script>
+    <script type="text/javascript" src="js/Action.js"></script>
+
+    <script type="text/javascript" src="js/App.js"></script>
+</head>
+<body>
+    <div id="menu">
+        <div class="button" onClick="App.startRecordPath()">Ajouter</div>
+        <div class="button" onClick="App.stopRecord()">Stop</div>
+    </div>
+    <svg id="svg"></svg>
+
+    <script type="text/javascript">
+        App.init()
+    </script>
+</body>
+</html>
