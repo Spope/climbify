@@ -1,4 +1,4 @@
-var Action = {
+App.Action = {
 
     selectedElement: null,
     currentMatrix: null,
@@ -11,44 +11,44 @@ var Action = {
     },
 
     startRecord: function() {
-        Drawer.svg.addEventListener('mousedown', this.clickEvent);
+        App.Drawer.svg.addEventListener('mousedown', this.clickEvent);
     },
 
     clickEvent: function(e) {
-        if (Action.selectedElement == null) {
+        if (App.Action.selectedElement == null) {
             var point = App.path.addPoint({x: e.offsetX, y: e.offsetY});
 
-            Drawer.addPoint(point);
+            App.Drawer.addPoint(point);
         }
     },
 
     stopRecord: function() {
-        Drawer.svg.removeEventListener('mousedown', this.clickEvent);
+        App.Drawer.svg.removeEventListener('mousedown', this.clickEvent);
     },
 
     selectPoint: function(event) {
         event.stopPropagation();
 
-        Action.selectedElement = event.target.parentElement;
-        var id = Action.selectedElement.querySelector('text').innerHTML;
+        App.Action.selectedElement = event.target.parentElement;
+        var id = App.Action.selectedElement.querySelector('text').innerHTML;
 
         var line1 = svg.getElementById('line' + id);
         var line2 = svg.getElementById('line' + (parseInt(id) + 1));
 
-        Action.lines[0] = line1;
-        Action.lines[1] = line2;
-        Action.selectedId = id;
+        App.Action.lines[0] = line1;
+        App.Action.lines[1] = line2;
+        App.Action.selectedId = id;
 
-        Action.currentX = event.clientX;
-        Action.currentY = event.clientY;
-        Action.currentMatrix = Action.selectedElement.getAttributeNS(null, "transform").slice(7,-1).split(' ');
+        App.Action.currentX = event.clientX;
+        App.Action.currentY = event.clientY;
+        App.Action.currentMatrix = App.Action.selectedElement.getAttributeNS(null, "transform").slice(7,-1).split(' ');
 
-        for(var i=0; i<Action.currentMatrix.length; i++) {
-            Action.currentMatrix[i] = parseFloat(Action.currentMatrix[i]);
+        for(var i = 0; i < App.Action.currentMatrix.length; i++) {
+            App.Action.currentMatrix[i] = parseFloat(App.Action.currentMatrix[i]);
         }
 
-        document.addEventListener('mousemove', Action.moveElement);
-        document.addEventListener('mouseup', Action.dropElement);
+        document.addEventListener('mousemove', App.Action.moveElement);
+        document.addEventListener('mouseup', App.Action.dropElement);
 
         return false;
     },
@@ -56,32 +56,32 @@ var Action = {
     moveElement: function(event) {
         event.stopPropagation();
 
-        dx = event.clientX - Action.currentX;
-        dy = event.clientY - Action.currentY;
-        Action.currentMatrix[4] += dx;
-        Action.currentMatrix[5] += dy;
-        newMatrix = "matrix(" + Action.currentMatrix.join(' ') + ")";
+        dx = event.clientX - App.Action.currentX;
+        dy = event.clientY - App.Action.currentY;
+        App.Action.currentMatrix[4] += dx;
+        App.Action.currentMatrix[5] += dy;
+        newMatrix = "matrix(" + App.Action.currentMatrix.join(' ') + ")";
 
-        Action.selectedElement.setAttribute("transform", newMatrix);
-        Action.currentX = event.clientX;
-        Action.currentY = event.clientY;
+        App.Action.selectedElement.setAttribute("transform", newMatrix);
+        App.Action.currentX = event.clientX;
+        App.Action.currentY = event.clientY;
 
-        //App.path.getPoint(parseInt(Action.selectedId) - 1).x = event.x;
-        //App.path.getPoint(parseInt(Action.selectedId) - 1).y = event.y;
+        //App.path.getPoint(parseInt(App.Action.selectedId) - 1).x = event.x;
+        //App.path.getPoint(parseInt(App.Action.selectedId) - 1).y = event.y;
         var point = {
             x: event.x,
             y: event.y,
-            i: Action.selectedId
+            i: App.Action.selectedId
         };
         App.path.updatePoint(point);
 
-        if (Action.lines[0]) {
-            Action.lines[0].setAttribute('x2', event.x);
-            Action.lines[0].setAttribute('y2', event.y);
+        if (App.Action.lines[0]) {
+            App.Action.lines[0].setAttribute('x2', event.x);
+            App.Action.lines[0].setAttribute('y2', event.y);
         }
-        if (Action.lines[1]) {
-            Action.lines[1].setAttribute('x1', event.x);
-            Action.lines[1].setAttribute('y1', event.y);
+        if (App.Action.lines[1]) {
+            App.Action.lines[1].setAttribute('x1', event.x);
+            App.Action.lines[1].setAttribute('y1', event.y);
         }
 
         return false;
@@ -90,9 +90,9 @@ var Action = {
     dropElement: function(event) {
         event.stopPropagation();
 
-        document.removeEventListener('mousemove', Action.moveElement);
-        document.removeEventListener('mouseup', Action.dropElement);
-        Action.selectedElement = null;
+        document.removeEventListener('mousemove', App.Action.moveElement);
+        document.removeEventListener('mouseup', App.Action.dropElement);
+        App.Action.selectedElement = null;
 
         return false;
     }

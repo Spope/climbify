@@ -1,4 +1,4 @@
-var Drawer = {
+App.Drawer = {
     svg: null,
 
     params: {
@@ -31,7 +31,7 @@ var Drawer = {
         var circle = this.createCircle(point);
         document.getElementById('group-circle').appendChild(circle);
 
-        circle.addEventListener('mousedown', Action.selectPoint);
+        circle.addEventListener('mousedown', App.Action.selectPoint);
     },
 
     createLine: function(point) {

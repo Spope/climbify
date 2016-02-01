@@ -6,16 +6,23 @@
     
     <link type="text/css" rel="stylesheet" href="style/css/main.css" />
 
+    <script type="text/javascript" src="js/App.js"></script>
+
     <script type="text/javascript" src="js/Path.js"></script>
     <script type="text/javascript" src="js/Drawer.js"></script>
     <script type="text/javascript" src="js/Action.js"></script>
-
-    <script type="text/javascript" src="js/App.js"></script>
 </head>
 <body>
     <div id="menu">
         <div class="button" onClick="App.startRecordPath()">Ajouter</div>
         <div class="button" onClick="App.stopRecord()">Stop</div>
+        <a id="download" class="button" download="problem.json" onMouseDown="App.saveRecord()">Enregistrer</a>
+        <label id="for-upload" for="upload">
+            <div class=button>
+                Charger
+                <input type="file" id="upload" onChange="App.readFile(this)" />
+            </div>
+        </label>
     </div>
     <svg id="svg"></svg>
 
