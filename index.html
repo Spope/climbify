@@ -11,18 +11,27 @@
     <script type="text/javascript" src="js/Path.js"></script>
     <script type="text/javascript" src="js/Drawer.js"></script>
     <script type="text/javascript" src="js/Action.js"></script>
+    <script type="text/javascript" src="js/Event.js"></script>
+    <script type="text/javascript" src="js/UI.js"></script>
 </head>
 <body>
     <div id="menu">
-        <div class="button" onClick="App.startRecordPath()">Ajouter</div>
-        <div class="button" onClick="App.stopRecord()">Stop</div>
-        <a id="download" class="button" download="problem.json" onMouseDown="App.saveRecord()">Enregistrer</a>
-        <label id="for-upload" for="upload">
-            <div class=button>
-                Charger
-                <input type="file" id="upload" onChange="App.readFile(this)" />
-            </div>
-        </label>
+        <div id="button-mode-edition" class="button button-mode active" onClick="App.setMode(App.modes.EDITION)">Edition</div>
+        <div id="menu-edition" class="menu-group">
+            <div id="menu-startrecord" class="button" onClick="App.startRecordPath()">Ajouter</div>
+            <div id="menu-stoprecord" class="button" onClick="App.stopRecord()">Stop</div>
+            <a id="download" class="button purple" download="problem.json" onMouseDown="App.saveRecord()">Enregistrer</a>
+            <label id="for-upload" for="upload">
+                <div class="button purple">
+                    Charger
+                    <input type="file" id="upload" onChange="App.readFile(this)" />
+                </div>
+            </label>
+        </div>
+        <div id="button-mode-play" class="button button-mode" onClick="App.setMode(App.modes.PLAY)">Démarrer</div>
+        <div id="menu-play" class="menu-group">
+            
+        </div>
     </div>
     <svg id="svg"></svg>
 

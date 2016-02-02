@@ -1,3 +1,10 @@
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+
 .button {
     display: inline-block;
     text-align: center;
@@ -11,8 +18,28 @@
     font-size: 0.9rem;
     background-color: @blue;
     color: #fff;
-
-    .selected {
-        
+    &:hover {
+        background-color: lighten(@blue, 5%);
     }
+
+    &.green {
+        background-color: @green;
+        &:hover {
+            background-color: lighten(@green, 5%);
+        }
+    }
+    &.purple {
+        background-color: @purple;
+        &:hover {
+            background-color: lighten(@purple, 5%);
+        }
+    }
+    &.gray {
+        background-color: @gray;
+        &:hover {
+            background-color: lighten(@gray, 5%);
+        }
+    }
+
+    
 }
