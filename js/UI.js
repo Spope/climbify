@@ -32,13 +32,17 @@ App.UI = {
                 App.UI.els.menuPlay.style.display    = 'none';
                 document.getElementById('button-mode-edition').className += " active";
                 document.getElementById('button-mode-play').className = document.getElementById('button-mode-play').className.replace(/ active/g, '');
+                document.getElementById('play-ui').style.display = "none";
                 break;
             case App.modes.PLAY:
                 App.UI.els.menuEdition.style.display = 'none';
                 App.UI.els.menuPlay.style.display    = 'inline-block';
                 document.getElementById('button-mode-edition').className = document.getElementById('button-mode-edition').className.replace(/ active/g, '');
                 document.getElementById('button-mode-play').className += " active";
+                document.getElementById('play-ui').style.display = "block";
                 break;
         }
-    }
+    },
+
+    
 }

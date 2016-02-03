@@ -13,6 +13,7 @@
     <script type="text/javascript" src="js/Action.js"></script>
     <script type="text/javascript" src="js/Event.js"></script>
     <script type="text/javascript" src="js/UI.js"></script>
+    <script type="text/javascript" src="js/Play.js"></script>
 </head>
 <body>
     <div id="menu">
@@ -31,6 +32,16 @@
         <div id="button-mode-play" class="button button-mode" onClick="App.setMode(App.modes.PLAY)">Démarrer</div>
         <div id="menu-play" class="menu-group">
             
+        </div>
+    </div>
+    <div id="play-ui">
+        <div id="highest-timer">
+            <div class="label">
+                High Score
+            </div>
+            <div id="highest-value"></div>
+        </div>
+        <div id="current-timer"></div>
         </div>
     </div>
     <svg id="svg"></svg>

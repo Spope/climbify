@@ -37,6 +37,7 @@ var App =  {
             App.Event.trigger(App.Event.events.CHANGEMODE, this.currentMode);
             if (mode == this.modes.PLAY) {
                 this.stopRecord();
+                this.Play.init();
             }
         } else {
             throw new Error('Invalid mode : ' + mode);

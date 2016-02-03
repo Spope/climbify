@@ -100,6 +100,8 @@ App.Drawer = {
         group.setAttribute('transform', 'matrix(1 0 0 1 0 0)');
         group.setAttribute('class', 'circle');
         group.setAttribute('data-id', point.i);
+        group.setAttribute('transform-origin', '50% 50%');
+        group.setAttribute('id', 'group-' + point.i);
 
         group.appendChild(QUcircle);
         group.appendChild(BGcircle);
@@ -119,5 +121,16 @@ App.Drawer = {
 
         this.svg.appendChild(lineG);
         this.svg.appendChild(circleG);
+    },
+
+    selectPoint: function(i) {
+        var point = App.path.getPoint(i);
+        var group = document.getElementById('group-' + i);
+        var transform = group.getAttribute('transform');
+        var matrix = transform.slice(7, -1).split(' ');
+        matrix[4] = -point.x / 2;
+        matrix[5] = -point.y / 2;
+        //group.setAttribute('transform', 'scale(2)');
+        group.setAttribute('transform', 'scale(2) matrix(' + matrix.join(' ') + ')');
     }
 }
