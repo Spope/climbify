@@ -48,7 +48,9 @@ App.Action = {
         }
 
         document.addEventListener('mousemove', App.Action.moveElement);
+        document.addEventListener('touchmove', App.Action.moveElement);
         document.addEventListener('mouseup', App.Action.dropElement);
+        document.addEventListener('touchend', App.Action.dropElement);
 
         return false;
     },
@@ -91,7 +93,9 @@ App.Action = {
         event.stopPropagation();
 
         document.removeEventListener('mousemove', App.Action.moveElement);
+        document.removeEventListener('touchmove', App.Action.moveElement);
         document.removeEventListener('mouseup', App.Action.dropElement);
+        document.removeEventListener('touchend', App.Action.dropElement);
         App.Action.selectedElement = null;
 
         return false;

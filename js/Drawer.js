@@ -32,6 +32,7 @@ App.Drawer = {
         document.getElementById('group-circle').appendChild(circle);
 
         circle.addEventListener('mousedown', App.Action.selectPoint);
+        //circle.addEventListener('touchstart', App.Action.selectPoint);
     },
 
     createLine: function(point) {
