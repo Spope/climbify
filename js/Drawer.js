@@ -140,8 +140,8 @@ App.Drawer = {
         var point = App.path.getPoint(i);
         var group = document.getElementById('group-' + i);
         var classname = group.getAttribute('class');
-        classname.replace(' selected', '');
-        group.setAttribute('class', classname) + ' selected';
+        classname = classname.replace(' selected', '');
+        group.setAttribute('class', classname);
         var transform = group.getAttribute('transform');
         var matrix = transform.slice(18, -1).split(' ');
         matrix[4] = 0;
