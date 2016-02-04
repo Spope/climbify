@@ -126,11 +126,26 @@ App.Drawer = {
     selectPoint: function(i) {
         var point = App.path.getPoint(i);
         var group = document.getElementById('group-' + i);
+        var classname = group.getAttribute('class');
+        group.setAttribute('class', classname + ' selected');
         var transform = group.getAttribute('transform');
         var matrix = transform.slice(7, -1).split(' ');
-        matrix[4] = -point.x / 2;
-        matrix[5] = -point.y / 2;
-        //group.setAttribute('transform', 'scale(2)');
-        group.setAttribute('transform', 'scale(2) matrix(' + matrix.join(' ') + ')');
+        var scale = 1.5;
+        matrix[4] = Math.round(-point.x * 0.33333);
+        matrix[5] = Math.round(-point.y * 0.33333);
+        group.setAttribute('transform', 'scale(' + scale + ') matrix(' + matrix.join(' ') + ')');
+    },
+
+    unSelectPoint: function(i) {
+        var point = App.path.getPoint(i);
+        var group = document.getElementById('group-' + i);
+        var classname = group.getAttribute('class');
+        classname.replace(' selected', '');
+        group.setAttribute('class', classname) + ' selected';
+        var transform = group.getAttribute('transform');
+        var matrix = transform.slice(18, -1).split(' ');
+        matrix[4] = 0;
+        matrix[5] = 0;
+        group.setAttribute('transform', 'matrix(' + matrix.join(' ') + ')');
     }
 }

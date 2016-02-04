@@ -7,10 +7,16 @@
 
 .circle {
     cursor: pointer;
-    .contour{
+    .contour {
         animation: contour 5s linear infinite;
         transform-origin: 50% 50%;
         display: inline-block;
+    }
+}
+
+.selected {
+    .contour {
+        animation: contour 3s linear infinite;
     }
 }
 
