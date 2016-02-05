@@ -73,7 +73,7 @@ App.Action = {
         var point = {
             x: event.x,
             y: event.y,
-            i: App.Action.selectedId
+            i: parseInt(App.Action.selectedId)
         };
         App.path.updatePoint(point);
 

@@ -4,7 +4,7 @@ App.Drawer = {
     params: {
         color: '123, 201, 255',
         colorH: '#7BC9FF',
-        radius: 25
+        radius: 20
     },
 
     init: function() {
@@ -22,7 +22,6 @@ App.Drawer = {
 
     addPoint: function(point) {
 
-        
         if (App.path.points.length > 1) {
             var line = this.createLine(point); 
             document.getElementById('group-line').appendChild(line);
