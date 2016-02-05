@@ -5,18 +5,41 @@
     background: black;
 }
 
+.line {
+    &.done {
+        stroke: @green;
+    }
+}
+
 .circle {
     cursor: pointer;
+    transition:.2s;
+
     .contour {
         animation: contour 5s linear infinite;
         transform-origin: 50% 50%;
         display: inline-block;
     }
-}
 
-.selected {
-    .contour {
-        animation: contour 2s linear infinite;
+    &.selected {
+        -webkit-transform: scale(1.5);
+        -webkit-transform-origin: 50% 50%;
+        -webkit-transition:.3s;
+        transform: scale(1.5);
+        transform-origin: 50% 50%;
+        
+        .contour {
+            animation-duration: 2s;
+        }
+    }
+
+    &.done {
+        .contour {
+            stroke: @green;
+        }
+        .bg-circle {
+            fill: @green;
+        }
     }
 }
 

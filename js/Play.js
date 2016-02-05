@@ -24,44 +24,51 @@ App.Play = {
         var way;
         if (e.keyCode == 40) {
             //DOWN
-            App.Play.selectPrevious();
+            App.Play.selectPrevious(0);
             way = 0;
         }
         if (e.keyCode == 38) {
             //UP
-            App.Play.selectNext();
+            App.Play.selectNext(1);
             way = 1;
-        }
-
-        switch (App.Play.selected) {
-            case 1:
-                App.Play.stopTimer(true);
-            break;
-            case 2:
-                if (way) {
-                    App.Play.startTimer();
-                }
-                break;
-            case App.path.points.length:
-                App.Play.timer.stop(false);
-            break
         }
     },
 
     selectNext: function() {
+
         if (this.selected < App.path.points.length) {
             App.Drawer.unSelectPoint(this.selected);
+            App.Drawer.donePoint(this.selected);
             this.selected++;
             App.Drawer.selectPoint(this.selected);
+        }
+
+        if (this.selected == 2) {
+                this.startTimer();
+            }
+
+        if (this.selected == App.path.points.length) {
+            App.Play.timer.stop(false);
+            App.Drawer.donePoint(this.selected);
         }
     },
 
     selectPrevious: function() {
+        if (this.selected == App.path.points.length) {
+            App.Drawer.undonePoint(this.selected);
+        }
+        
         if (this.selected > 1) {
             App.Drawer.unSelectPoint(this.selected);
             this.selected--;
             App.Drawer.selectPoint(this.selected);
         }
+
+        if (this.selected == 1) {
+            App.Play.stopTimer(true);
+        }
+
+        App.Drawer.undonePoint(this.selected);
     },
 
     startTimer: function() {

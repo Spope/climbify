@@ -38,12 +38,14 @@ App.Drawer = {
         var lastPoint = App.path.points[App.path.points.length - 2];
 
         var line = document.createElementNS('http://www.w3.org/2000/svg','line');
-        line.setAttribute('id','line' + point.i);
+        line.setAttribute('id','line-' + point.i);
+        line.setAttribute('class','line');
         line.setAttribute('x1', lastPoint.x);
         line.setAttribute('y1', lastPoint.y);
         line.setAttribute('x2', point.x);
         line.setAttribute('y2', point.y);
-        line.setAttribute('style', 'stroke:rgb(' + this.params.color + ');stroke-width:'  + (this.params.radius / 3));
+        line.setAttribute('stroke', 'rgb(' + this.params.color + ')');
+        line.setAttribute('stroke-width', this.params.radius / 3);
 
         return line;
     },
@@ -60,6 +62,7 @@ App.Drawer = {
         BGcircle.setAttribute('fill', this.params.colorH);
         BGcircle.setAttribute('stroke', 'black');
         BGcircle.setAttribute('stroke-width', this.params.radius * 0.15);
+        BGcircle.setAttribute('class', 'bg-circle');
 
         //var STcircle = document.createElementNS('http://www.w3.org/2000/svg','circle');
         //STcircle.setAttribute('id','circle' + point.i);
@@ -122,29 +125,60 @@ App.Drawer = {
         this.svg.appendChild(circleG);
     },
 
+    donePoint: function(i) {
+        var group = document.getElementById('group-' + i);
+        var classname = group.getAttribute('class');
+        if (classname.indexOf('done') === -1) {
+            group.setAttribute('class', classname + ' done');
+        }
+
+        if (i > 1) {
+            var line = document.getElementById('line-' + i);
+            var classname = line.getAttribute('class');
+            if (classname.indexOf('done') === -1) {
+                line.setAttribute('class', classname + ' done');
+            }
+        }
+    },
+
+    undonePoint: function(i) {
+        var group = document.getElementById('group-' + i);
+        var classname = group.getAttribute('class');
+        classname = classname.replace(/ done/g, '');
+        group.setAttribute('class', classname);
+
+        if (i < App.path.points.length && i > 0) {
+            var line = document.getElementById('line-' + (i + 1));
+            var classname = line.getAttribute('class');
+            classname = classname.replace(/ done/g, '');
+            line.setAttribute('class', classname);
+        }
+    },
+
     selectPoint: function(i) {
-        var point = App.path.getPoint(i);
+        //var point = App.path.getPoint(i);
         var group = document.getElementById('group-' + i);
         var classname = group.getAttribute('class');
         group.setAttribute('class', classname + ' selected');
-        var transform = group.getAttribute('transform');
-        var matrix = transform.slice(7, -1).split(' ');
-        var scale = 1.5;
-        matrix[4] = Math.round(-point.x * 0.33333);
-        matrix[5] = Math.round(-point.y * 0.33333);
-        group.setAttribute('transform', 'scale(' + scale + ') matrix(' + matrix.join(' ') + ')');
+
+        //var transform = group.getAttribute('transform');
+        //var matrix = transform.slice(7, -1).split(' ');
+        //var scale = 1.5;
+        //matrix[4] = Math.round(-point.x * (scale - 1));
+        //matrix[5] = Math.round(-point.y * (scale - 1));
+        //group.setAttribute('transform', 'scale(' + scale + ') matrix(' + matrix.join(' ') + ')');
     },
 
     unSelectPoint: function(i) {
-        var point = App.path.getPoint(i);
+        //var point = App.path.getPoint(i);
         var group = document.getElementById('group-' + i);
         var classname = group.getAttribute('class');
-        classname = classname.replace(' selected', '');
+        classname = classname.replace(/ selected/g, '');
         group.setAttribute('class', classname);
-        var transform = group.getAttribute('transform');
-        var matrix = transform.slice(18, -1).split(' ');
-        matrix[4] = 0;
-        matrix[5] = 0;
-        group.setAttribute('transform', 'matrix(' + matrix.join(' ') + ')');
+        //var transform = group.getAttribute('transform');
+        //var matrix = transform.slice(18, -1).split(' ');
+        //matrix[4] = 0;
+        //matrix[5] = 0;
+        //group.setAttribute('transform', 'matrix(' + matrix.join(' ') + ')');
     }
 }
