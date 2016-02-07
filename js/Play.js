@@ -24,12 +24,12 @@ App.Play = {
         var way;
         if (e.keyCode == 40) {
             //DOWN
-            App.Play.selectPrevious(0);
+            App.Play.selectPrevious();
             way = 0;
         }
         if (e.keyCode == 38) {
             //UP
-            App.Play.selectNext(1);
+            App.Play.selectNext();
             way = 1;
         }
     },

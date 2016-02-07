@@ -1,5 +1,7 @@
 App.Drawer = {
     svg: null,
+    lines: {},
+    circles: {},
 
     params: {
         color: '123, 201, 255',
@@ -23,97 +25,29 @@ App.Drawer = {
     addPoint: function(point) {
 
         if (App.path.points.length > 1) {
-            var line = this.createLine(point); 
-            document.getElementById('group-line').appendChild(line);
+            var lastPoint = App.path.points[App.path.points.length - 2];
+
+            var line = new App.line(point, lastPoint);
+            this.lines[point.i] = line;
+            document.getElementById('group-line').appendChild(line.el);
         }
 
-        var circle = this.createCircle(point);
-        document.getElementById('group-circle').appendChild(circle);
+        var circle = new App.point(point);
+        this.circles[point.i] = circle;
+        document.getElementById('group-circle').appendChild(circle.el);
 
-        circle.addEventListener('mousedown', App.Action.selectPoint);
+        circle.el.addEventListener('mousedown', App.Action.selectPoint);
         //circle.addEventListener('touchstart', App.Action.selectPoint);
-    },
 
-    createLine: function(point) {
-        var lastPoint = App.path.points[App.path.points.length - 2];
-
-        var line = document.createElementNS('http://www.w3.org/2000/svg','line');
-        line.setAttribute('id','line-' + point.i);
-        line.setAttribute('class','line');
-        line.setAttribute('x1', lastPoint.x);
-        line.setAttribute('y1', lastPoint.y);
-        line.setAttribute('x2', point.x);
-        line.setAttribute('y2', point.y);
-        line.setAttribute('stroke', 'rgb(' + this.params.color + ')');
-        line.setAttribute('stroke-width', this.params.radius / 3);
-
-        return line;
-    },
-
-
-    createCircle: function(point) {
-
-        var BGcircle = document.createElementNS('http://www.w3.org/2000/svg','circle');
-        BGcircle.setAttribute('id','circle' + point.i);
-        BGcircle.setAttribute('cx', point.x);
-        BGcircle.setAttribute('cy', point.y);
-        BGcircle.setAttribute('r', this.params.radius);
-        BGcircle.setAttribute('y2', point.y);
-        BGcircle.setAttribute('fill', this.params.colorH);
-        BGcircle.setAttribute('stroke', 'black');
-        BGcircle.setAttribute('stroke-width', this.params.radius * 0.15);
-        BGcircle.setAttribute('class', 'bg-circle');
-
-        //var STcircle = document.createElementNS('http://www.w3.org/2000/svg','circle');
-        //STcircle.setAttribute('id','circle' + point.i);
-        //STcircle.setAttribute('cx', point.x);
-        //STcircle.setAttribute('cy', point.y);
-        //STcircle.setAttribute('r', this.params.radius * 0.8);
-        //STcircle.setAttribute('y2', point.y);
-        //STcircle.setAttribute('stroke', 'black');
-        //STcircle.setAttribute('stroke-width', this.params.radius * 0.15);
-        //STcircle.setAttribute('fill', this.params.colorH);
-
-        var QUcircle = document.createElementNS('http://www.w3.org/2000/svg','path');
-        QUcircle.setAttribute('id', 'contour' + point.i);
-        var circleRadius = this.params.radius * 1.15
-        var mx = point.x;
-        var my = point.y;
-        var contour = 'M' + (mx + circleRadius) + ' ' + point.y + ' A' + circleRadius + ' ' + circleRadius + ' ' + '0 0 0 ' + point.x + ' ' + (point.y - circleRadius);
-        contour += ' M' + mx + ' ' + (my + circleRadius) + ' ';
-        contour += ' A' + circleRadius + ' ' + circleRadius + ' 0 0 1 ' + (mx - circleRadius) + ' ' +my;
-        QUcircle.setAttribute('d', contour);
-        QUcircle.setAttribute('stroke', this.params.colorH);
-        QUcircle.setAttribute('stroke-width', this.params.radius * 0.25);
-        QUcircle.setAttribute('class', 'contour');
-
-        var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        //var textX = point.x - (this.params.radius / 2);
-        var textY = point.y + (this.params.radius / 3);
-        text.setAttribute('x', point.x);
-        text.setAttribute('y', textY);
-        text.setAttribute('fill', 'white');
-        text.setAttribute('font-size', this.params.radius);
-        text.setAttribute('text-anchor', 'middle');
-        text.textContent = point.i;
-
-        //document.getElementById('group-circle').appendChild(STcircle);
-        var group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        group.setAttribute('transform', 'matrix(1 0 0 1 0 0)');
-        group.setAttribute('class', 'circle');
-        group.setAttribute('data-id', point.i);
-        group.setAttribute('transform-origin', '50% 50%');
-        group.setAttribute('id', 'group-' + point.i);
-
-        group.appendChild(QUcircle);
-        group.appendChild(BGcircle);
-        group.appendChild(text);
-
-        return group;
     },
 
     reset: function() {
-        this.svg.innerHTML = "";
+        var groups = this.svg.getElementsByTagName('g');
+        if (groups.length) {
+            for (var i in groups) {
+                groups[i].parentNode.removeChild(groups[i]);
+            }
+        }
 
         var lineG = document.createElementNS('http://www.w3.org/2000/svg','g');
         var circleG = document.createElementNS('http://www.w3.org/2000/svg','g');
@@ -127,31 +61,33 @@ App.Drawer = {
 
     donePoint: function(i) {
         var group = document.getElementById('group-' + i);
-        var classname = group.getAttribute('class');
-        if (classname.indexOf('done') === -1) {
-            group.setAttribute('class', classname + ' done');
-        }
+        Tools.addClass(group, 'done')
 
         if (i > 1) {
-            var line = document.getElementById('line-' + i);
-            var classname = line.getAttribute('class');
-            if (classname.indexOf('done') === -1) {
-                line.setAttribute('class', classname + ' done');
-            }
+            var line = this.lines[i];
+            line.undoing();
+            line.done();
+        }
+
+        if (i < App.path.points.length) {
+            var previousLine = this.lines[i + 1];
+            previousLine.doing();
         }
     },
 
     undonePoint: function(i) {
         var group = document.getElementById('group-' + i);
-        var classname = group.getAttribute('class');
-        classname = classname.replace(/ done/g, '');
-        group.setAttribute('class', classname);
+        Tools.removeClass(group, 'done');
 
         if (i < App.path.points.length && i > 0) {
-            var line = document.getElementById('line-' + (i + 1));
-            var classname = line.getAttribute('class');
-            classname = classname.replace(/ done/g, '');
-            line.setAttribute('class', classname);
+            var line = this.lines[i + 1];
+            line.undoing();
+        }
+
+        if (i > 1) {
+            var doingLine = this.lines[i];
+            doingLine.undone();
+            doingLine.doing();
         }
     },
 

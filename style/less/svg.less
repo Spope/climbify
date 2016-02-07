@@ -5,7 +5,15 @@
     background: black;
 }
 
+.doing {
+    stroke: url('#gradient');
+}
+.doing-invert {
+    stroke: url('#gradient-invert');
+}
+
 .line {
+    
     &.done {
         stroke: @green;
     }
@@ -23,11 +31,11 @@
 
     &.selected {
         -webkit-transform: scale(1.5);
-        -webkit-transform-origin: 50% 50%;
-        -webkit-transition:.3s;
         transform: scale(1.5);
+        -webkit-transform-origin: 50% 50%;
         transform-origin: 50% 50%;
-        
+        -webkit-transition:.3s;
+
         .contour {
             animation-duration: 2s;
         }
