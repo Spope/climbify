@@ -1,21 +1,44 @@
 App.Play = {
     currentTimer: null,
-    highestValue: null,
+    highestTime: null,
+    promptname: null,
     selected: 1,
     timer: null,
     timerTick: null,
     init: function() {
+        App.Event.addEventListener(App.Event.events.CHANGEMODE, function() {
+            switch (App.currentMode) {
+                case App.modes.PLAY:
+                    App.Play.start();
+                break;
+                case App.modes.EDITION:
+                    App.Play.stop();
+                break;
+            }
+        })
+    },
+    start: function() {
         this.currentTimer = document.getElementById('current-timer');
-        this.highestValue = document.getElementById('highest-value');
+        this.highestTimer = document.getElementById('highest-value');
+        this.promptname   = document.getElementById('prompt-name');
 
         this.currentTimer.innerHTML = "00.00";
-        this.highestValue.innerHTML = "0.0s";
+        this.highestTimer.innerHTML = "00.00";
 
         App.Drawer.selectPoint(this.selected);
         this.timer = new App.stopWatch();
+        
         this.bind();
     },
 
+    stop: function() {
+        App.Drawer.unSelectPoint(this.selected);
+        this.unbind();
+    },
+
+    unbind: function() {
+        document.onkeydown = null;
+    },
     bind: function() {
         document.onkeydown = App.Play.bindKeyboard;
     },
@@ -35,7 +58,6 @@ App.Play = {
     },
 
     selectNext: function() {
-
         if (this.selected < App.path.points.length) {
             App.Drawer.unSelectPoint(this.selected);
             App.Drawer.donePoint(this.selected);
@@ -48,7 +70,7 @@ App.Play = {
             }
 
         if (this.selected == App.path.points.length) {
-            App.Play.timer.stop(false);
+            App.Play.finish();
             App.Drawer.donePoint(this.selected);
         }
     },
@@ -77,8 +99,46 @@ App.Play = {
         this.timerTick = setInterval("App.Play.updateTimer()", 1);
     },
 
+    finish: function() {
+        App.Play.timer.stop(false);
+
+        App.Play.showName();
+    },
+
+    showName: function() {
+        this.promptname.style.display = 'block';
+        document.getElementById('user').onkeydown = function(e) {
+            if (e.keyCode == 13) {
+                App.Play.submit();
+            }
+        };
+        document.getElementById('submit-button').onmouseup = this.submit;
+        document.getElementById('user').focus();
+        setTimeout(function() {
+            console.log('ok');
+            document.getElementById('user').select();
+        }, 1);
+    },
+    hideName: function() {
+        this.promptname.style.display = 'none';
+        document.getElementById('user').blur();
+    },
+
+    submit: function() {
+        var name = document.getElementById('user').value;
+        if (name == '') {
+            name = 'John Doe';
+        }
+
+        App.LeaderBoard.addScore(name, App.Play.timer.time());
+        App.Play.hideName();
+
+        return false;
+    },
+
     stopTimer: function(reset) {
         this.timer.stop();
+
         if (reset) {
             this.timer.reset();
         }
@@ -86,6 +146,6 @@ App.Play = {
     },
 
     updateTimer: function() {
-        this.currentTimer.innerHTML = App.Play.timer.format();
+        this.currentTimer.innerHTML = App.Play.timer.display();
     }
 }

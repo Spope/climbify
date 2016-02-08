@@ -13,7 +13,25 @@ App.point = function (point) {
     this.el.appendChild(this.bg);
     this.el.appendChild(this.text);
 
+    this.bindMode();
+    this.changeMode();
+
     return this;
+}
+
+App.point.prototype.bindMode = function() {
+    App.Event.addEventListener(App.Event.events.CHANGEMODE, this.changeMode.bind(this));
+}
+
+App.point.prototype.changeMode = function() {
+    switch (App.currentMode) {
+        case App.modes.EDITION:
+            this.el.addEventListener('mousedown', App.Edition.selectPoint);
+        break;
+        case App.modes.PLAY:
+            this.el.removeEventListener('mousedown', App.Edition.selectPoint);
+        break;
+    }
 }
 
 App.point.prototype.hideQu = function() {

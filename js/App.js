@@ -7,21 +7,12 @@ var App =  {
     },
     init: function() {
         this.Drawer.init();
-        this.Action.init();
+        this.Edition.init();
         this.UI.init();
+        this.Play.init();
 
         this.path = new Path();
         this.currentMode = this.modes.EDITION;
-    },
-
-
-    startRecordPath: function() {
-        this.Action.startRecord();
-        this.Event.trigger(App.Event.events.STARTRECORD);
-    },
-    stopRecord: function() {
-        this.Action.stopRecord();
-        this.Event.trigger(App.Event.events.STOPRECORD);
     },
 
     saveRecord: function(e) {
@@ -34,11 +25,7 @@ var App =  {
     setMode: function(mode) {
         if (this.modes[mode]) {
             this.currentMode = this.modes[mode];
-            App.Event.trigger(App.Event.events.CHANGEMODE, this.currentMode);
-            if (mode == this.modes.PLAY) {
-                this.stopRecord();
-                this.Play.init();
-            }
+            this.Event.trigger(App.Event.events.CHANGEMODE);
         } else {
             throw new Error('Invalid mode : ' + mode);
         }

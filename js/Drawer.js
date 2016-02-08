@@ -35,10 +35,13 @@ App.Drawer = {
         var circle = new App.point(point);
         this.circles[point.i] = circle;
         document.getElementById('group-circle').appendChild(circle.el);
+    },
 
-        circle.el.addEventListener('mousedown', App.Action.selectPoint);
-        //circle.addEventListener('touchstart', App.Action.selectPoint);
-
+    getLine: function (i) {
+        return this.lines[i];
+    },
+    getCircle: function (i) {
+        return this.circles[i];
     },
 
     reset: function() {

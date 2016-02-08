@@ -30,26 +30,24 @@ App.stopWatch = function() {
         return lapTime + (startAt ? now() - startAt : 0); 
     };
 
-    this.format = function() {
-        var time = this.time();
-        var h = m = s = ms = 0;
-        var newTime = '';
+    this.display = function() {
+        return this.format(this.time());
+    },
 
-        h = Math.floor( time / (60 * 60 * 1000) );
+    this.format = function(time) {
+        //h = Math.floor( time / (60 * 60 * 1000) );
 
-        time = time % (60 * 60 * 1000);
-        m = Math.floor( time / (60 * 1000) );
+        time  = time % (60 * 60 * 1000);
+        var m = Math.floor(time / (60 * 1000));
 
-        time = time % (60 * 1000);
-        s =  Math.floor( time / 1000);
+        time  = time % (60 * 1000);
+        var s = Math.floor(time / 1000);
+        s    += (m * 60);
 
-        time = time % (10 * 1000);
-        cs = Math.floor(time / 10);
-        //ms = time % 1000;
+        time  = time % (10 * 1000);
+        var c = Math.floor(time / 10);
 
-        //newTime = this.pad(h, 2) + ':' + this.pad(m, 2) + ':' + this.pad(s, 2) + ':' + this.pad(ms, 3);
-        newTime = this.pad(s, 2) + ':' + this.pad(cs, 2);
-        return newTime;
+        return this.pad(s, 2) + ':' + this.pad(c, 2);
     };
 
     this.pad = function (num, size) {
