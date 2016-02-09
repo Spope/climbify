@@ -6,6 +6,7 @@ App.Play = {
     timer: null,
     timerTick: null,
     init: function() {
+        App.LeaderBoard.init();
         App.Event.addEventListener(App.Event.events.CHANGEMODE, function() {
             switch (App.currentMode) {
                 case App.modes.PLAY:
@@ -19,11 +20,8 @@ App.Play = {
     },
     start: function() {
         this.currentTimer = document.getElementById('current-timer');
-        this.highestTimer = document.getElementById('highest-value');
         this.promptname   = document.getElementById('prompt-name');
-
         this.currentTimer.innerHTML = "00.00";
-        this.highestTimer.innerHTML = "00.00";
 
         App.Drawer.selectPoint(this.selected);
         this.timer = new App.stopWatch();
@@ -100,7 +98,7 @@ App.Play = {
     },
 
     finish: function() {
-        App.Play.timer.stop(false);
+        App.Play.stopTimer(false);
 
         App.Play.showName();
     },
