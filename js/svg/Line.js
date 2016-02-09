@@ -23,6 +23,11 @@ App.line.prototype.create = function(p1, p2) {
     return this;
 };
 
+App.line.prototype.reset = function() {
+    this.undone();
+    this.undoing();
+}
+
 App.line.prototype.done = function() {
     Tools.addClass(this.el, 'done');
 }

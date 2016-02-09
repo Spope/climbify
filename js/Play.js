@@ -115,7 +115,6 @@ App.Play = {
         document.getElementById('submit-button').onmouseup = this.submit;
         document.getElementById('user').focus();
         setTimeout(function() {
-            console.log('ok');
             document.getElementById('user').select();
         }, 1);
     },
@@ -132,8 +131,15 @@ App.Play = {
 
         App.LeaderBoard.addScore(name, App.Play.timer.time());
         App.Play.hideName();
+        App.Play.restart();
 
         return false;
+    },
+
+    restart: function() {
+        App.Drawer.restart();
+        this.selected = 1;
+        App.Drawer.selectPoint(this.selected);
     },
 
     stopTimer: function(reset) {

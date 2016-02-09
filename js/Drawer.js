@@ -63,8 +63,8 @@ App.Drawer = {
     },
 
     donePoint: function(i) {
-        var group = document.getElementById('group-' + i);
-        Tools.addClass(group, 'done')
+        var circle = this.circles[i];
+        circle.done();
 
         if (i > 1) {
             var line = this.lines[i];
@@ -79,8 +79,8 @@ App.Drawer = {
     },
 
     undonePoint: function(i) {
-        var group = document.getElementById('group-' + i);
-        Tools.removeClass(group, 'done');
+        var circle = this.circles[i];
+        circle.undone();
 
         if (i < App.path.points.length && i > 0) {
             var line = this.lines[i + 1];
@@ -95,29 +95,21 @@ App.Drawer = {
     },
 
     selectPoint: function(i) {
-        //var point = App.path.getPoint(i);
-        var group = document.getElementById('group-' + i);
-        var classname = group.getAttribute('class');
-        group.setAttribute('class', classname + ' selected');
-
-        //var transform = group.getAttribute('transform');
-        //var matrix = transform.slice(7, -1).split(' ');
-        //var scale = 1.5;
-        //matrix[4] = Math.round(-point.x * (scale - 1));
-        //matrix[5] = Math.round(-point.y * (scale - 1));
-        //group.setAttribute('transform', 'scale(' + scale + ') matrix(' + matrix.join(' ') + ')');
+        var circle = this.circles[i];
+        circle.select();
     },
 
     unSelectPoint: function(i) {
-        //var point = App.path.getPoint(i);
-        var group = document.getElementById('group-' + i);
-        var classname = group.getAttribute('class');
-        classname = classname.replace(/ selected/g, '');
-        group.setAttribute('class', classname);
-        //var transform = group.getAttribute('transform');
-        //var matrix = transform.slice(18, -1).split(' ');
-        //matrix[4] = 0;
-        //matrix[5] = 0;
-        //group.setAttribute('transform', 'matrix(' + matrix.join(' ') + ')');
+        var circle = this.circles[i];
+        circle.unselect();
+    },
+
+    restart: function() {
+        for (var i in this.circles) {
+            this.circles[i].reset();
+        }
+        for (var i in this.lines) {
+            this.lines[i].reset();
+        }
     }
 }

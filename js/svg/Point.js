@@ -19,6 +19,24 @@ App.point = function (point) {
     return this;
 }
 
+App.point.prototype.reset = function() {
+    this.undone();
+    this.unselect();
+}
+
+App.point.prototype.done = function() {
+    Tools.addClass(this.el, 'done');
+}
+App.point.prototype.undone = function() {
+    Tools.removeClass(this.el, 'done');
+}
+App.point.prototype.select = function() {
+    Tools.addClass(this.el, 'selected');
+}
+App.point.prototype.unselect = function() {
+    Tools.removeClass(this.el, 'selected');
+}
+
 App.point.prototype.bindMode = function() {
     App.Event.addEventListener(App.Event.events.CHANGEMODE, this.changeMode.bind(this));
 }
