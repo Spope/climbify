@@ -8,7 +8,7 @@ var Tools = {
 
     removeClass: function(el, classToRemove) {
         var classname = el.getAttribute('class');
-        var re = new RegExp(classToRemove, "g");
+        var re = new RegExp(' ' + classToRemove, "g");
         classname = classname.replace(re, '');
         el.setAttribute('class', classname);
     }

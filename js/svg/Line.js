@@ -36,13 +36,30 @@ App.line.prototype.undone = function() {
 }
 
 App.line.prototype.doing = function() {
-    if (this.p1.x > this.p2.x) {
-        Tools.addClass(this.el, 'doing');
+    var deltaX = this.p1.x - this.p2.x;
+    var deltaY = this.p1.y - this.p2.y;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (deltaX > 0) {
+            Tools.addClass(this.el, 'doing-x');
+        } else {
+            Tools.addClass(this.el, 'doing-x-invert');
+        }
     } else {
-        Tools.addClass(this.el, 'doing-invert');
+        if (deltaY > 0) {
+            Tools.addClass(this.el, 'doing-y');
+        } else {
+            Tools.addClass(this.el, 'doing-y-invert');
+        }
     }
+
+    
 }
 App.line.prototype.undoing = function() {
-    Tools.removeClass(this.el, 'doing');
+    Tools.removeClass(this.el, 'doing-x-invert');
+    Tools.removeClass(this.el, 'doing-y-invert');
+    Tools.removeClass(this.el, 'doing-x');
+    Tools.removeClass(this.el, 'doing-y');
+    
 }
 
