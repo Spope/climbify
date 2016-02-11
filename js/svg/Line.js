@@ -18,7 +18,7 @@ App.line.prototype.create = function(p1, p2) {
     this.el.setAttribute('x2', this.p1.x);
     this.el.setAttribute('y2', this.p1.y);
     this.el.setAttribute('stroke', 'rgb(' + App.Drawer.params.color + ')');
-    this.el.setAttribute('stroke-width', App.Drawer.params.radius / 3);
+    this.el.setAttribute('stroke-width', App.Drawer.params.radius / 4);
 
     return this;
 };

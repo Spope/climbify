@@ -94,7 +94,7 @@ App.Play = {
     startTimer: function() {
         this.timer.reset();
         this.timer.start();
-        this.timerTick = setInterval("App.Play.updateTimer()", 1);
+        this.timerTick = setInterval("App.Play.updateTimer()", 30);
     },
 
     finish: function() {

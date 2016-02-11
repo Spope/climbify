@@ -30,7 +30,7 @@
     transition:.2s;
 
     .contour {
-        animation: contour 5s linear infinite;
+        animation: contour 3s linear infinite;
         transform-origin: 50% 50%;
         display: inline-block;
     }
@@ -43,7 +43,7 @@
         -webkit-transition:.3s;
 
         .contour {
-            animation-duration: 2s;
+            animation-duration: 1s;
         }
     }
 
@@ -59,9 +59,9 @@
 
 @keyframes contour {
     0% {
-        transform: rotate(0deg);
+        stroke-dashoffset: 0;
     }
     100% {
-        transform: rotate(360deg);
+        stroke-dashoffset: 81.68;
     }
 }
