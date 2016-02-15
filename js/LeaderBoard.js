@@ -52,7 +52,7 @@ App.LeaderBoard = {
         for (var i in App.LeaderBoard.leaderBoard) {
             var score = App.LeaderBoard.leaderBoard[i];
             var sec = App.Play.timer.format(score.time);
-            var place = i + 1;
+            var place = parseInt(i) + 1;
 
             content += "<div class='result-line'>";
                 content += "<div class='place'>";
