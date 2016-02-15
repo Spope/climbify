@@ -19,44 +19,49 @@
 }
 
 .line {
-    
     &.done {
+        stroke: @green;
+    }
+}
+
+.contour {
+    animation: contour 3s linear infinite;
+    transform-origin: 50% 50%;
+    transition-duration:.2s;
+
+    &.selected {
+        transform: scale(1.5);
+        animation-duration: .5s;
+    }
+    &.done {
         stroke: @green;
     }
 }
 
 .circle {
     cursor: pointer;
-    transition:.2s;
-
-    .contour {
-        animation: contour 3s linear infinite;
-        transform-origin: 50% 50%;
-        display: inline-block;
-    }
+    transition-duration:.2s;
+    transform-origin: 50% 50%;
 
     &.selected {
-        -webkit-transform: scale(1.5);
         transform: scale(1.5);
-        -webkit-transform-origin: 50% 50%;
-        transform-origin: 50% 50%;
-        -webkit-transition:.3s;
-
-        .contour {
-            animation-duration: 1s;
-        }
     }
 
     &.done {
-        .contour {
-            stroke: @green;
-        }
         .bg-circle {
             fill: @green;
         }
     }
 }
 
+/*@keyframes contour {*/
+    /*0% {*/
+        /*-webkit-transform: rotateZ(0deg);*/
+    /*}*/
+    /*100% {*/
+        /*-webkit-transform: rotateZ(360deg);*/
+    /*}*/
+/*}*/
 @keyframes contour {
     0% {
         stroke-dashoffset: 0;

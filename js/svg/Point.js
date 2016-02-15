@@ -2,16 +2,16 @@ App.point = function (point) {
     this.x = point.x;
     this.y = point.y;
     this.i = point.i;
-    this.el = null;
+    this.g = null;
 
     this.bg = this.createBg();
     this.qu = this.createQu();
     this.text = this.createText();
-    this.el = this.createGroup();
+    this.g = this.createGroup();
 
-    this.el.appendChild(this.qu);
-    this.el.appendChild(this.bg);
-    this.el.appendChild(this.text);
+    this.g.appendChild(this.qu);
+    this.g.appendChild(this.bg);
+    this.g.appendChild(this.text);
 
     this.bindMode();
     this.changeMode();
@@ -25,16 +25,20 @@ App.point.prototype.reset = function() {
 }
 
 App.point.prototype.done = function() {
-    Tools.addClass(this.el, 'done');
+    Tools.addClass(this.g, 'done');
+    Tools.addClass(this.qu, 'done');
 }
 App.point.prototype.undone = function() {
-    Tools.removeClass(this.el, 'done');
+    Tools.removeClass(this.g, 'done');
+    Tools.removeClass(this.qu, 'done');
 }
 App.point.prototype.select = function() {
-    Tools.addClass(this.el, 'selected');
+    Tools.addClass(this.g, 'selected');
+    Tools.addClass(this.qu, 'selected');
 }
 App.point.prototype.unselect = function() {
-    Tools.removeClass(this.el, 'selected');
+    Tools.removeClass(this.g, 'selected');
+    Tools.removeClass(this.qu, 'selected');
 }
 
 App.point.prototype.bindMode = function() {
@@ -44,10 +48,10 @@ App.point.prototype.bindMode = function() {
 App.point.prototype.changeMode = function() {
     switch (App.currentMode) {
         case App.modes.EDITION:
-            this.el.addEventListener('mousedown', App.Edition.selectPoint);
+            this.g.addEventListener('mousedown', App.Edition.selectPoint);
         break;
         case App.modes.PLAY:
-            this.el.removeEventListener('mousedown', App.Edition.selectPoint);
+            this.g.removeEventListener('mousedown', App.Edition.selectPoint);
         break;
     }
 }
@@ -67,13 +71,15 @@ App.point.prototype.move = function(point) {
     this.bg.setAttribute('cx', this.x);
     this.bg.setAttribute('cy', this.y);
     //
-    var circleRadius = App.Drawer.params.radius * 1.15
-    var mx = this.x;
-    var my = this.y;
-    var contour = 'M' + (mx + circleRadius) + ' ' + this.y + ' A' + circleRadius + ' ' + circleRadius + ' ' + '0 0 0 ' + this.x + ' ' + (this.y - circleRadius);
-    contour += ' M' + mx + ' ' + (my + circleRadius) + ' ';
-    contour += ' A' + circleRadius + ' ' + circleRadius + ' 0 0 1 ' + (mx - circleRadius) + ' ' +my;
-    this.qu.setAttribute('d', contour);
+    //var circleRadius = App.Drawer.params.radius * 1.15
+    //var mx = this.x;
+    //var my = this.y;
+    //var contour = 'M' + (mx + circleRadius) + ' ' + this.y + ' A' + circleRadius + ' ' + circleRadius + ' ' + '0 0 0 ' + this.x + ' ' + (this.y - circleRadius);
+    //contour += ' M' + mx + ' ' + (my + circleRadius) + ' ';
+    //contour += ' A' + circleRadius + ' ' + circleRadius + ' 0 0 1 ' + (mx - circleRadius) + ' ' +my;
+    //this.qu.setAttribute('d', contour);
+    this.qu.setAttribute('cx', this.x);
+    this.qu.setAttribute('cy', this.y);
     //
     var textY = this.y + (App.Drawer.params.radius / 3);
     this.text.setAttribute('x', this.x);

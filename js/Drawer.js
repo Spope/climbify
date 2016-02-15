@@ -34,7 +34,8 @@ App.Drawer = {
 
         var circle = new App.point(point);
         this.circles[point.i] = circle;
-        document.getElementById('group-circle').appendChild(circle.el);
+        this.svg.appendChild(circle.qu);
+        this.svg.appendChild(circle.g);
     },
 
     getLine: function (i) {
@@ -53,13 +54,13 @@ App.Drawer = {
         }
 
         var lineG = document.createElementNS('http://www.w3.org/2000/svg','g');
-        var circleG = document.createElementNS('http://www.w3.org/2000/svg','g');
+        //var circleG = document.createElementNS('http://www.w3.org/2000/svg','g');
 
         lineG.setAttribute('id','group-line');
-        circleG.setAttribute('id','group-circle');
+        //circleG.setAttribute('id','group-circle');
 
         this.svg.appendChild(lineG);
-        this.svg.appendChild(circleG);
+        //this.svg.appendChild(circleG);
     },
 
     donePoint: function(i) {
