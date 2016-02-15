@@ -52,8 +52,12 @@ App.LeaderBoard = {
         for (var i in App.LeaderBoard.leaderBoard) {
             var score = App.LeaderBoard.leaderBoard[i];
             var sec = App.Play.timer.format(score.time);
+            var place = i + 1;
 
             content += "<div class='result-line'>";
+                content += "<div class='place'>";
+                    content += place + ' - ';
+                content += "</div>"
                 content += "<div class='name'>";
                     content += score.name
                 content += "</div>";
