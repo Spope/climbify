@@ -5,6 +5,10 @@ var Path = function() {
             
         },
 
+        reset: function() {
+            this.points = [];
+        },
+
         addPoint: function (coords) {
             this.points.push(coords);
 

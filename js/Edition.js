@@ -1,6 +1,7 @@
 App.Edition = {
 
     selectedElement: null,
+    rangeSizeElement: null,
     currentMatrix: null,
     currentX: null,
     currentY: null,
@@ -10,6 +11,11 @@ App.Edition = {
     init: function() {
         this.bindMode();
         this.startRecord();
+
+        this.rangeSizeElement = document.getElementById('rangeSize');
+        this.rangeSizeElement.value = App.Drawer.params.radius;
+
+        this.bindRange = this.bindRange();
     },
 
     bindMode: function() {
@@ -23,6 +29,14 @@ App.Edition = {
                 break;
             }
         });
+    },
+
+    bindRange: function() {
+        this.rangeSizeElement.addEventListener('change', this.setRangeSize.bind(this));
+    },
+
+    setRangeSize: function(e) {
+        App.Drawer.setRadius(this.rangeSizeElement.value);
     },
 
     startRecord: function() {
@@ -73,8 +87,8 @@ App.Edition = {
         App.Edition.currentY = event.clientY;
 
         var point = {
-            x: event.x,
-            y: event.y,
+            x: dx,
+            y: dy,
             i: parseInt(App.Edition.selectedId)
         };
         App.path.updatePoint(point);
@@ -82,13 +96,13 @@ App.Edition = {
         App.Edition.selected.move(point);
 
         if (App.Edition.lines[0]) {
-            App.Edition.lines[0].el.setAttribute('x2', event.x);
-            App.Edition.lines[0].el.setAttribute('y2', event.y);
+            App.Edition.lines[0].el.setAttribute('x2', dx);
+            App.Edition.lines[0].el.setAttribute('y2', dy);
             App.Edition.lines[0].p1 = point;
         }
         if (App.Edition.lines[1]) {
-            App.Edition.lines[1].el.setAttribute('x1', event.x);
-            App.Edition.lines[1].el.setAttribute('y1', event.y);
+            App.Edition.lines[1].el.setAttribute('x1', dx);
+            App.Edition.lines[1].el.setAttribute('y1', dy);
             App.Edition.lines[1].p2 = point;
         }
 

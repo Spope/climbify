@@ -6,7 +6,7 @@ App.Drawer = {
     params: {
         color: '123, 201, 255',
         colorH: '#7BC9FF',
-        radius: 20
+        radius: 16
     },
 
     init: function() {
@@ -18,13 +18,19 @@ App.Drawer = {
         this.reset();
     },
 
+    setRadius: function(radius) {
+        this.params.radius = radius;
+
+        this.redraw();
+    },
+
     startDraw: function() {
         this.context.beginPath();
     },
 
-    addPoint: function(point) {
+    addPoint: function(point, ignoreLast) {
 
-        if (App.path.points.length > 1) {
+        if (App.path.points.length > 1 && ignoreLast !== true) {
             var lastPoint = App.path.points[App.path.points.length - 2];
 
             var line = new App.line(point, lastPoint);
@@ -46,12 +52,9 @@ App.Drawer = {
     },
 
     reset: function() {
-        var groups = this.svg.getElementsByTagName('g');
-        if (groups.length) {
-            for (var i in groups) {
-                groups[i].parentNode.removeChild(groups[i]);
-            }
-        }
+        this.resetAllElByTagName('g');
+        this.resetAllElByTagName('path');
+        this.resetAllElByTagName('circle');
 
         var lineG = document.createElementNS('http://www.w3.org/2000/svg','g');
         //var circleG = document.createElementNS('http://www.w3.org/2000/svg','g');
@@ -61,6 +64,17 @@ App.Drawer = {
 
         this.svg.appendChild(lineG);
         //this.svg.appendChild(circleG);
+    },
+
+    resetAllElByTagName: function(tagName) {
+        var els = this.svg.getElementsByTagName(tagName);
+        if (els.length) {
+            for (var i in els) {
+                if (els[i].parentNode) {
+                    els[i].parentNode.removeChild(els[i]);
+                }
+            }
+        }
     },
 
     donePoint: function(i) {
@@ -111,6 +125,22 @@ App.Drawer = {
         }
         for (var i in this.lines) {
             this.lines[i].reset();
+        }
+    },
+
+    redraw: function() {
+        this.reset();
+
+        var points = App.path.points;
+        App.path.reset();
+        this.draw(points);
+    },
+
+    draw: function(path) {
+        for (var i in path) {
+            var point = path[i];
+            App.path.addPoint({x: point.x, y: point.y});
+            App.Drawer.addPoint(point);
         }
     }
 }

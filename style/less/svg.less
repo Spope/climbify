@@ -6,16 +6,16 @@
 }
 
 .doing-x {
-    stroke: url('#gradient-x');
+    stroke: url('/climb/index.html#gradient-x') !important;
 }
 .doing-x-invert {
-    stroke: url('#gradient-x-invert');
+    stroke: url('/climb/index.html#gradient-x-invert') !important;
 }
 .doing-y {
-    stroke: url('#gradient-y');
+    stroke: url('/climb/index.html#gradient-y') !important;
 }
 .doing-y-invert {
-    stroke: url('#gradient-y-invert');
+    stroke: url('/climb/index.html#gradient-y-invert') !important;
 }
 
 .line {
@@ -25,13 +25,13 @@
 }
 
 .contour {
-    animation: contour 3s linear infinite;
+    /*animation: contour @duration linear infinite;*/
+    transition-duration: .2s;
     transform-origin: 50% 50%;
-    transition-duration:.2s;
 
     &.selected {
         transform: scale(1.5);
-        animation-duration: .5s;
+        animation-duration: 1s;
     }
     &.done {
         stroke: @green;
@@ -56,17 +56,307 @@
 
 /*@keyframes contour {*/
     /*0% {*/
-        /*-webkit-transform: rotateZ(0deg);*/
+        /*transform: rotateZ(0deg);*/
     /*}*/
     /*100% {*/
-        /*-webkit-transform: rotateZ(360deg);*/
+        /*transform: rotateZ(360deg);*/
     /*}*/
 /*}*/
-@keyframes contour {
+/*@keyframes contour {*/
+    /*0% {*/
+        /*stroke-dashoffset: 0;*/
+    /*}*/
+    /*100% {*/
+        /*stroke-dashoffset: 81.68;*/
+    /*}*/
+/*}*/
+
+
+
+.contour-11 {
+    animation: contour-11 @duration linear infinite;
+}
+.contour-12 {
+    animation: contour-12 @duration linear infinite;
+}
+.contour-13 {
+    animation: contour-13 @duration linear infinite;
+}
+.contour-14 {
+    animation: contour-14 @duration linear infinite;
+}
+.contour-15 {
+    animation: contour-15 @duration linear infinite;
+}
+.contour-16 {
+    animation: contour-16 @duration linear infinite;
+}
+.contour-17 {
+    animation: contour-17 @duration linear infinite;
+}
+.contour-18 {
+    animation: contour-18 @duration linear infinite;
+}
+.contour-19 {
+    animation: contour-19 @duration linear infinite;
+}
+.contour-20 {
+    animation: contour-20 @duration linear infinite;
+}
+.contour-21 {
+    animation: contour-21 @duration linear infinite;
+}
+.contour-22 {
+    animation: contour-22 @duration linear infinite;
+}
+.contour-23 {
+    animation: contour-23 @duration linear infinite;
+}
+.contour-24 {
+    animation: contour-24 @duration linear infinite;
+}
+.contour-25 {
+    animation: contour-25 @duration linear infinite;
+}
+.contour-26 {
+    animation: contour-26 @duration linear infinite;
+}
+.contour-27 {
+    animation: contour-27 @duration linear infinite;
+}
+.contour-28 {
+    animation: contour-28 @duration linear infinite;
+}
+.contour-29 {
+    animation: contour-29 @duration linear infinite;
+}
+.contour-30 {
+    animation: contour-30 @duration linear infinite;
+}
+.contour-31 {
+    animation: contour-31 @duration linear infinite;
+}
+.contour-32 {
+    animation: contour-32 @duration linear infinite;
+}
+.contour-33 {
+    animation: contour-33 @duration linear infinite;
+}
+.contour-34 {
+    animation: contour-34 @duration linear infinite;
+}
+.contour-35 {
+    animation: contour-35 @duration linear infinite;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@keyframes contour-11 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 44.92;
+    }
+}
+@keyframes contour-12 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 49.01;
+    }
+}
+@keyframes contour-13 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 53.09;
+    }
+}
+@keyframes contour-14 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 57.18;
+    }
+}
+@keyframes contour-15 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 61.26;
+    }
+}
+@keyframes contour-16 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 65.35;
+    }
+}
+@keyframes contour-17 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 69.43;
+    }
+}
+@keyframes contour-18 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 73.51;
+    }
+}
+@keyframes contour-19 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 77.6;
+    }
+}
+@keyframes contour-20 {
     0% {
         stroke-dashoffset: 0;
     }
     100% {
         stroke-dashoffset: 81.68;
+    }
+}
+@keyframes contour-21 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 85.77;
+    }
+}
+@keyframes contour-22 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 89.85;
+    }
+}
+@keyframes contour-23 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 93.93;
+    }
+}
+@keyframes contour-24 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 98.02;
+    }
+}
+@keyframes contour-25 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 102.1;
+    }
+}
+@keyframes contour-26 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 106.19;
+    }
+}
+@keyframes contour-27 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 110.27;
+    }
+}
+@keyframes contour-28 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 114.35;
+    }
+}
+@keyframes contour-29 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 118.44;
+    }
+}
+@keyframes contour-30 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 122.52;
+    }
+}
+@keyframes contour-31 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 126.61;
+    }
+}
+@keyframes contour-32 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 130.69;
+    }
+}
+@keyframes contour-33 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 134.77;
+    }
+}
+@keyframes contour-34 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 138.86;
+    }
+}
+@keyframes contour-35 {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 142.94;
     }
 }

@@ -45,10 +45,6 @@ var App =  {
     },
     loadFile: function(content) {
         var path = JSON.parse(content);
-        for (var i in path) {
-            var point = path[i];
-            App.path.addPoint({x: point.x, y: point.y});
-            App.Drawer.addPoint(point);
-        }
+        this.Drawer.draw(path);
     }
 }

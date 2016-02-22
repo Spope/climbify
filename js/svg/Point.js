@@ -95,17 +95,17 @@ App.point.prototype.createBg = function () {
     BGcircle.setAttribute('y2', this.y);
     BGcircle.setAttribute('fill', App.Drawer.params.colorH);
     BGcircle.setAttribute('stroke', 'none');
-    //BGcircle.setAttribute('stroke', 'black');
-    //BGcircle.setAttribute('stroke-width', Math.round((App.Drawer.params.radius * 0.23) * 100) / 100);
+    BGcircle.setAttribute('stroke', 'black');
+    BGcircle.setAttribute('stroke-width', App.Drawer.params.radius * 0.2);
     BGcircle.setAttribute('class', 'bg-circle');
 
     return BGcircle;
 }
 
 App.point.prototype.createQu = function () {
-    //var QUcircle = document.createElementNS('http://www.w3.org/2000/svg','path');
-    //QUcircle.setAttribute('id', 'contour' + this.i);
-    //var circleRadius = App.Drawer.params.radius * 1.15
+    var QUcircle = document.createElementNS('http://www.w3.org/2000/svg','path');
+    QUcircle.setAttribute('id', 'contour' + this.i);
+    //var circleRadius = App.Drawer.params.radius * 1.27
     //var mx = this.x;
     //var my = this.y;
     //var contour = 'M' + (mx + circleRadius) + ' ' + this.y + ' A' + circleRadius + ' ' + circleRadius + ' ' + '0 0 0 ' + this.x + ' ' + (this.y - circleRadius);
@@ -113,24 +113,26 @@ App.point.prototype.createQu = function () {
     //contour += ' A' + circleRadius + ' ' + circleRadius + ' 0 0 1 ' + (mx - circleRadius) + ' ' +my;
     //QUcircle.setAttribute('d', contour);
     //QUcircle.setAttribute('stroke', App.Drawer.params.colorH);
-    //QUcircle.setAttribute('stroke-width', App.Drawer.params.radius * 0.25);
+    //QUcircle.setAttribute('stroke-width', App.Drawer.params.radius / 4);
     //QUcircle.setAttribute('class', 'contour');
+    //QUcircle.setAttribute('fill', 'none');
 
     var STcircle = document.createElementNS('http://www.w3.org/2000/svg','circle');
     STcircle.setAttribute('id','contour' + this.i);
     STcircle.setAttribute('cx', this.x);
     STcircle.setAttribute('cy', this.y);
-    STcircle.setAttribute('r', Math.round(App.Drawer.params.radius * 1.3));
+    var r = Math.round(App.Drawer.params.radius * 1.3);
+    STcircle.setAttribute('r', r);
     STcircle.setAttribute('y2', this.y);
     STcircle.setAttribute('stroke', App.Drawer.params.colorH);
     STcircle.setAttribute('stroke-width', Math.round(App.Drawer.params.radius * 0.20));
-    STcircle.setAttribute('stroke-dasharray', 40.8);
+    var dash = ((Math.PI * r) / 2);
+    STcircle.setAttribute('stroke-dasharray', dash);
     STcircle.setAttribute('fill', 'black');
-    STcircle.setAttribute('class', 'contour');
-    //STcircle.setAttribute('fill', App.Drawer.params.colorH);
+    STcircle.setAttribute('class', 'contour contour-' + App.Drawer.params.radius);
 
     return STcircle;
-    return QUcircle;
+    //return QUcircle;
 }
 
 App.point.prototype.createText = function() {

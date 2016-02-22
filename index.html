@@ -23,19 +23,24 @@
 </head>
 <body>
     <div id="menu">
-        <div id="button-mode-edition" class="button button-mode active" onClick="App.setMode(App.modes.EDITION)">Edition</div>
+        <div id="button-mode-edition" class="button button-mode active" onClick="App.setMode(App.modes.EDITION)">Edit</div>
         <div id="menu-edition" class="menu-group">
-            <div id="menu-startrecord" class="button" onClick="App.Edition.startRecord()">Ajouter</div>
-            <div id="menu-stoprecord" class="button" onClick="App.Edition.stopRecord()">Stop</div>
-            <a id="download" class="button purple" download="problem.json" onMouseDown="App.saveRecord()">Enregistrer</a>
+            <div id="menu-startrecord" class="button" onClick="App.Edition.startRecord()">Add points</div>
+            <div id="menu-stoprecord" class="button" onClick="App.Edition.stopRecord()">Stop points</div>
+            <a id="download" class="button purple" download="problem.json" onMouseDown="App.saveRecord()">Save problem</a>
             <label id="for-upload" for="upload">
                 <div class="button purple">
-                    Charger
+                    Load problem
                     <input type="file" id="upload" onChange="App.readFile(this)" />
                 </div>
             </label>
+            <div id="menu-range">
+                <input id="rangeSize" type="range" value="15" max="35" min="11" step="1">
+                <div class="clr"></div>
+                <label>Points Size</label>
+            </div>
         </div>
-        <div id="button-mode-play" class="button button-mode" onClick="App.setMode(App.modes.PLAY)">Démarrer</div>
+        <div id="button-mode-play" class="button button-mode" onClick="App.setMode(App.modes.PLAY)">Play</div>
         <div id="menu-play" class="menu-group">
             
         </div>
@@ -53,19 +58,19 @@
     <svg id="svg">
         <defs>
             <linearGradient id="gradient-x" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="20%"   stop-color="#4dd64a" />
+                <stop offset="20%" stop-color="#4dd64a" />
                 <stop offset="80%" stop-color="#7BC9FF" />
             </linearGradient>
             <linearGradient id="gradient-x-invert" x1="100%" y1="0%" x2="0%" y2="0%">
-                <stop offset="20%"   stop-color="#4dd64a" />
+                <stop offset="20%" stop-color="#4dd64a" />
                 <stop offset="80%" stop-color="#7BC9FF" />
             </linearGradient>
             <linearGradient id="gradient-y" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="20%"   stop-color="#4dd64a" />
+                <stop offset="20%" stop-color="#4dd64a" />
                 <stop offset="80%" stop-color="#7BC9FF" />
             </linearGradient>
             <linearGradient id="gradient-y-invert" x1="0%" y1="100%" x2="0%" y2="0%">
-                <stop offset="20%"   stop-color="#4dd64a" />
+                <stop offset="20%" stop-color="#4dd64a" />
                 <stop offset="80%" stop-color="#7BC9FF" />
             </linearGradient>
         </defs>
