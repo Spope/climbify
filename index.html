@@ -17,6 +17,7 @@
     <script type="text/javascript" src="js/Play.js"></script>
     <script type="text/javascript" src="js/LeaderBoard.js"></script>
     <script type="text/javascript" src="js/Tools.js"></script>
+    <script type="text/javascript" src="js/Slider.js"></script>
 
     <script type="text/javascript" src="js/svg/Line.js"></script>
     <script type="text/javascript" src="js/svg/Point.js"></script>
@@ -34,10 +35,18 @@
                     <input type="file" id="upload" onChange="App.readFile(this)" />
                 </div>
             </label>
+            <!--
             <div id="menu-range">
                 <input id="rangeSize" type="range" value="15" max="35" min="11" step="1">
                 <div class="clr"></div>
                 <label>Points Size</label>
+            </div>
+            -->
+            <div id="menu-range">
+                <div id="slider">
+                    <div id="slider-back"></div>
+                    <div id="picker"></div>
+                </div>
             </div>
         </div>
         <div id="button-mode-play" class="button button-mode" onClick="App.setMode(App.modes.PLAY)">Play</div>

@@ -3,7 +3,8 @@ App.Event = {
     events: {
         CHANGEMODE: 'CHANGEMODE',
         STARTRECORD: 'STARTRECORD',
-        STOPRECORD: 'STOPRECORD'
+        STOPRECORD: 'STOPRECORD',
+        CHANGESIZE: 'CHANGESIZE'
     },
 
     addEventListener: function(eventName, callback) {

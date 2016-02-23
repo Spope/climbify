@@ -12,10 +12,8 @@ App.Edition = {
         this.bindMode();
         this.startRecord();
 
-        this.rangeSizeElement = document.getElementById('rangeSize');
-        this.rangeSizeElement.value = App.Drawer.params.radius;
-
-        this.bindRange = this.bindRange();
+        App.Slider.init();
+        App.Event.addEventListener(App.Event.events.CHANGESIZE, this.setRangeSize.bind(this))
     },
 
     bindMode: function() {
@@ -31,12 +29,8 @@ App.Edition = {
         });
     },
 
-    bindRange: function() {
-        this.rangeSizeElement.addEventListener('change', this.setRangeSize.bind(this));
-    },
-
-    setRangeSize: function(e) {
-        App.Drawer.setRadius(this.rangeSizeElement.value);
+    setRangeSize: function(value) {
+        App.Drawer.setRadius(value);
     },
 
     startRecord: function() {

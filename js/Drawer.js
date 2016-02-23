@@ -70,7 +70,7 @@ App.Drawer = {
         var els = this.svg.getElementsByTagName(tagName);
         if (els.length) {
             for (var i in els) {
-                if (els[i].parentNode) {
+                if (els[i] && els[i].parentNode) {
                     els[i].parentNode.removeChild(els[i]);
                 }
             }
