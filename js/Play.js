@@ -110,7 +110,7 @@ App.Play = {
                 App.Play.submit();
             }
         };
-        document.getElementById('submit-button').onmouseup = this.submit;
+        document.getElementById('submit-button').addEventListener('click', this.submit);
         document.getElementById('user').focus();
         setTimeout(function() {
             document.getElementById('user').select();
