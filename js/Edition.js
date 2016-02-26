@@ -4,13 +4,13 @@ App.Edition = {
     rangeSizeElement: null,
     currentMatrix: null,
     currentX: null,
-    currentY: null,
     lines: {},
     selected: null,
+    selectedId: null,
 
     init: function() {
         this.bindMode();
-        this.startRecord();
+        //this.startRecord();
 
         App.Slider.init();
         App.Event.addEventListener(App.Event.events.CHANGESIZE, this.setRangeSize.bind(this))
@@ -56,6 +56,7 @@ App.Edition = {
 
         App.Edition.selectedElement = event.target.parentElement;
         var id = App.Edition.selectedElement.querySelector('text').innerHTML;
+        App.Edition.selectedId = id;
 
         var line1 = svg.getElementById('line-' + id);
         var line2 = svg.getElementById('line-' + (parseInt(id) + 1));
@@ -67,6 +68,7 @@ App.Edition = {
 
         document.addEventListener('mousemove', App.Edition.moveElement);
         document.addEventListener('touchmove', App.Edition.moveElement);
+
         document.addEventListener('mouseup', App.Edition.dropElement);
         document.addEventListener('touchend', App.Edition.dropElement);
 
@@ -78,14 +80,12 @@ App.Edition = {
 
         dx = event.clientX;
         dy = event.clientY
-        App.Edition.currentY = event.clientY;
 
         var point = {
             x: dx,
             y: dy,
             i: parseInt(App.Edition.selectedId)
         };
-        App.path.updatePoint(point);
 
         App.Edition.selected.move(point);
 
@@ -106,12 +106,27 @@ App.Edition = {
     dropElement: function(event) {
         event.stopPropagation();
 
+        dx = event.clientX;
+        dy = event.clientY
+
+        var point = {
+            x: dx,
+            y: dy,
+            i: parseInt(App.Edition.selectedId)
+        };
+        
+        App.path.updatePoint(point);
+
         document.removeEventListener('mousemove', App.Edition.moveElement);
         document.removeEventListener('touchmove', App.Edition.moveElement);
+
         document.removeEventListener('mouseup', App.Edition.dropElement);
         document.removeEventListener('touchend', App.Edition.dropElement);
+
         App.Edition.selected.showQu();
+        App.Edition.selectedElement = null;
         App.Edition.selected = null;
+        App.Edition.selectedId = null;
 
         return false;
     }

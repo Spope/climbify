@@ -4,10 +4,12 @@ App.point = function (point) {
     this.i = point.i;
     this.g = null;
 
-    this.bg = this.createBg();
-    this.qu = this.createQu();
+    this.bg   = this.createBg();
+    this.qu   = this.createQu();
     this.text = this.createText();
-    this.g = this.createGroup();
+    this.g    = this.createGroup();
+
+    //this.join = '<path fill="#7BC9FF" d="M0,95.4C19.3,76.1,47.7,50,47.7,0l30.1,0c0,50,28.4,76.1,47.7,95.4H0z"/>';
 
     this.g.appendChild(this.qu);
     this.g.appendChild(this.bg);
@@ -158,6 +160,7 @@ App.point.prototype.createGroup = function() {
 
     return group;
 }
+
 //var STcircle = document.createElementNS('http://www.w3.org/2000/svg','circle');
 //STcircle.setAttribute('id','circle' + point.i);
 //STcircle.setAttribute('cx', point.x);

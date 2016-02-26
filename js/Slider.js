@@ -3,6 +3,7 @@ App.Slider = {
     el: null,
     picker: null,
     sliderBack: null,
+    sliderHighlight: null,
     startPosition: {
         picker: null,
         event: null
@@ -18,6 +19,7 @@ App.Slider = {
         this.el = document.getElementById("slider");
         this.sliderBack = document.getElementById("slider-back");
         this.picker = document.getElementById("picker");
+        this.sliderHighlight = document.getElementById("slider-highlight");
         this.setValue(App.Drawer.params.radius, false);
 
         this.bind();
@@ -48,16 +50,16 @@ App.Slider = {
 
         if ((App.Slider.startPosition.picker.x + delta + App.Slider.params.pickerW) >= App.Slider.params.width) {
 
-            App.Slider.picker.style.left = (App.Slider.params.width - App.Slider.params.pickerW) + 'px';
+            App.Slider.movePickerTo(App.Slider.params.width - App.Slider.params.pickerW);
             return false;
         }
         if ((App.Slider.startPosition.picker.x + delta) <= 0) {
+            App.Slider.movePickerTo(0);
 
-            App.Slider.picker.style.left = '0px';
             return false;
         }
 
-        App.Slider.picker.style.left = (App.Slider.startPosition.picker.x + delta) + 'px';
+        App.Slider.movePickerTo(App.Slider.startPosition.picker.x + delta);
     },
 
     convertToValue: function(size) {
@@ -96,7 +98,7 @@ App.Slider = {
         var step  = range / delta;
 
         var position = parseInt(step * (value - App.Slider.params.min));
-        this.picker.style.left = position + 'px';
+        this.movePickerTo(position);
 
         if (trigger !== false) {
             App.Event.trigger(App.Event.events.CHANGESIZE, value);
@@ -113,5 +115,11 @@ App.Slider = {
             x = App.Slider.params.width - App.Slider.params.pickerW;
         }
         this.setValue(this.convertToValue(x));
+    },
+
+    movePickerTo: function(position) {
+        this.picker.style.left = position + 'px';
+        var highlight = this.params.width - position - this.params.pickerW;
+        this.sliderHighlight.style.width = highlight + 'px';
     }
 };

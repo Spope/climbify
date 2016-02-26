@@ -111,12 +111,16 @@ App.Drawer = {
 
     selectPoint: function(i) {
         var circle = this.circles[i];
-        circle.select();
+        if (circle) {
+            circle.select();
+        }
     },
 
     unSelectPoint: function(i) {
         var circle = this.circles[i];
-        circle.unselect();
+        if (circle) {
+            circle.unselect();
+        }
     },
 
     restart: function() {

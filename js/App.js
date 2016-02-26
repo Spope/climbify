@@ -42,9 +42,13 @@ var App =  {
             that.loadFile(e.target.result);
         };
         reader.readAsText(file);
+        el.files[0] = null;
     },
     loadFile: function(content) {
         var path = JSON.parse(content);
+        this.path.reset();
+        this.Drawer.reset();
         this.Drawer.draw(path);
+        App.Edition.stopRecord();
     }
 }
