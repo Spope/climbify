@@ -13,6 +13,11 @@
     var canvas = document.querySelector('#canvas');
     var ctx = canvas.getContext('2d');
     var localMediaStream = null;
+    var areaSize = 70;
+    var resolution = 5;
+    var areaCount = Math.pow((areaSize / resolution), 2);
+    var trigger = areaCount * 0.4;
+
     //
     var imagesData = [];
     imagesData.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
@@ -45,21 +50,15 @@
         var diff2 = Math.abs(tr-pr) + Math.abs(tg-pg) + Math.abs(tb-pb);
         var diff3 = Math.abs(cr-tr) + Math.abs(cg-tg) + Math.abs(cb-tb);
 
-        var str = {};
+        var ret = {};
         if(diff > 35 && diff2 > 35) {
-            str.r = 255;
-            str.g = 0;
-            str.b = 0;
-            str.a = 255;
+            ret.moved = true;
         } else {
-            str.r = 255;
-            str.g = 255;
-            str.b = 255;
-            str.a = 255;
+            ret.moved = false;
         }
-        str.d = diff;
+        ret.d = diff;
         //
-        return str;
+        return ret;
     }
 
     function motionDetect() {
@@ -67,30 +66,43 @@
         imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         imagesData.unshift(imageData);
         //
-        var size = 5;
+        
         var startPoint = (Math.PI/180)*0;
         var endPoint = (Math.PI/180)*360;
         //
         ctx.clearRect(0,0,canvas.width, canvas.height);
         //
         var x, y;
+
+        
+
         var x1 = 200;
-        var x2 = 400;
+        var x2 = x1 + areaSize;
         var y1 = 100;
-        var y2 = 300;
+        var y2 = y1 + areaSize;
 
-        for(x = x1; x < x2; x += size) {
-            for(y = y1; y < y2; y += size) {
+        var movedPoints = 0;
+        for(x = x1; x < x2; x += resolution) {
+            for(y = y1; y < y2; y += resolution) {
                 //
-                var cob = getPixel(x, y);
+                var pixel = getPixel(x, y);
 
-                ctx.fillStyle = "rgba(" + cob.r + "," + cob.g + "," + cob.b + "," + 255 + ")";
-                ctx.beginPath();
-                ctx.arc(x, y, 2, startPoint, endPoint,true);
-                ctx.fill();
-                ctx.closePath();
+                if (pixel.moved) {
+                    ctx.fillStyle = "rgba(255, 0, 0, 255)";
+                    ctx.beginPath();
+                    ctx.arc(x, y, 2, startPoint, endPoint,true);
+                    ctx.fill();
+                    ctx.closePath();
+
+                    movedPoints ++;
+                }
             }
         }
+
+        if (movedPoints > trigger) {
+            console.log('TRIGGER ' + movedPoints + ' / ' + trigger);
+        }
+
         imagesData.pop();
     }
 
@@ -98,7 +110,6 @@
         setInterval(function() {
             context.drawImage(obj, 0, 0);
             motionDetect();
-            console.log('oi');
         }, 100);
         //
         //window.requestAnimationFrame(loop.bind(null, obj, context));
