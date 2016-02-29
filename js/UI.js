@@ -1,7 +1,8 @@
 App.UI = {
     els: {
         menuEdition: null,
-        menuPlay: null
+        menuPlay: null,
+        helpPopup: null
     },
     modes: {
         ADDPOINTS: 'addPoints',
@@ -13,6 +14,9 @@ App.UI = {
         App.Event.addEventListener(App.Event.events.CHANGEMODE, this.checkMode);
         App.Event.addEventListener(App.Event.events.STARTRECORD, this.startRecord);
         App.Event.addEventListener(App.Event.events.STOPRECORD, this.stopRecord);
+
+        document.getElementById('help-button').addEventListener('click', this.toggleHelp);
+        this.helpPopup = document.getElementById('help-popup');
     },
 
     startRecord: function() {
@@ -43,4 +47,10 @@ App.UI = {
                 break;
         }
     },
+
+    toggleHelp: function() {
+        var display = App.UI.helpPopup.style.display;
+        display = display == 'block' ? 'none' : 'block';
+        App.UI.helpPopup.style.display = display;
+    }
 }

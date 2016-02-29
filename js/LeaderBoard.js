@@ -12,7 +12,7 @@ App.LeaderBoard = {
     },
 
     bind: function() {
-        this.highestTimer.addEventListener('click', this.showLeaderBoard);
+        document.getElementById('highest-timer').addEventListener('click', this.showLeaderBoard);
     },
 
     addScore: function(name, time) {

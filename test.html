@@ -1,0 +1,120 @@
+<!doctype html>
+<head>
+    <title>motion detection</title>
+</head>
+<body>
+    <video autoplay id="vid" width="800" height="600" ></video>
+    <canvas id="canvas" width="800" height="600" style="border:1px solid #d3d3d3;"></canvas><br>
+
+
+<script type="text/javascript">
+
+    var video = document.querySelector("#vid");
+    var canvas = document.querySelector('#canvas');
+    var ctx = canvas.getContext('2d');
+    var localMediaStream = null;
+    //
+    var imagesData = [];
+    imagesData.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    imagesData.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    imagesData.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    //
+    var onCameraFail = function (e) {
+        console.log('Camera did not work.', e);
+    };
+
+    function getPixel(x, y) {
+        //
+        var cr, cg, cb, ca, pr, pg, pb, pa, offset = x * 4 + y * 4 * imagesData[0].width;
+        cr = imagesData[0].data[offset];
+        cg = imagesData[0].data[offset + 1];
+        cb = imagesData[0].data[offset + 2];
+        ca = imagesData[0].data[offset + 3];
+        //
+        pr = imagesData[1].data[offset];
+        pg = imagesData[1].data[offset + 1];
+        pb = imagesData[1].data[offset + 2];
+        pa = imagesData[1].data[offset + 3];
+        //
+        tr = imagesData[2].data[offset];
+        tg = imagesData[2].data[offset + 1];
+        tb = imagesData[2].data[offset + 2];
+        ta = imagesData[2].data[offset + 3];
+        //
+        var diff = Math.abs(pr-cr) + Math.abs(pg-cg) + Math.abs(pb-cb);
+        var diff2 = Math.abs(tr-pr) + Math.abs(tg-pg) + Math.abs(tb-pb);
+        var diff3 = Math.abs(cr-tr) + Math.abs(cg-tg) + Math.abs(cb-tb);
+
+        var str = {};
+        if(diff > 35 && diff2 > 35) {
+            str.r = 255;
+            str.g = 0;
+            str.b = 0;
+            str.a = 255;
+        } else {
+            str.r = 255;
+            str.g = 255;
+            str.b = 255;
+            str.a = 255;
+        }
+        str.d = diff;
+        //
+        return str;
+    }
+
+    function motionDetect() {
+        //
+        imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        imagesData.unshift(imageData);
+        //
+        var size = 5;
+        var startPoint = (Math.PI/180)*0;
+        var endPoint = (Math.PI/180)*360;
+        //
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        //
+        var x, y;
+        var x1 = 200;
+        var x2 = 400;
+        var y1 = 100;
+        var y2 = 300;
+
+        for(x = x1; x < x2; x += size) {
+            for(y = y1; y < y2; y += size) {
+                //
+                var cob = getPixel(x, y);
+
+                ctx.fillStyle = "rgba(" + cob.r + "," + cob.g + "," + cob.b + "," + 255 + ")";
+                ctx.beginPath();
+                ctx.arc(x, y, 2, startPoint, endPoint,true);
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+        imagesData.pop();
+    }
+
+    function loop(obj, context) {
+        setInterval(function() {
+            context.drawImage(obj, 0, 0);
+            motionDetect();
+            console.log('oi');
+        }, 100);
+        //
+        //window.requestAnimationFrame(loop.bind(null, obj, context));
+    }
+
+    video.addEventListener('play', function() { loop(video, ctx) }, false);
+
+
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    window.URL = window.URL || window.webkitURL;
+    navigator.getUserMedia({video:true}, function (stream) {
+        video.src = window.URL.createObjectURL(stream);
+        localMediaStream = stream;
+    }, onCameraFail);
+
+</script>
+</body>
+
+</html>
