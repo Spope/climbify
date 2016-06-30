@@ -4,7 +4,7 @@ App.Camera = {
     canvas: null,
     ctx: null,
     imagesData: [],
-    trigger: null
+    trigger: null,
     resolution: 5,
     video: null,
 
@@ -35,7 +35,7 @@ App.Camera = {
 
     loop: function() {
         setInterval(function() {
-            App.Camera.context.drawImage(App.Camera.video, 0, 0);
+            App.Camera.ctx.drawImage(App.Camera.video, 0, 0);
             App.Camera.motionDetect();
         }, 100);
     },
@@ -94,9 +94,9 @@ App.Camera = {
         pg = this.imagesData[1].data[offset + 1];
         pb = this.imagesData[1].data[offset + 2];
         //
-        //tr = this.imagesData[2].data[offset];
-        //tg = this.imagesData[2].data[offset + 1];
-        //tb = this.imagesData[2].data[offset + 2];
+        tr = this.imagesData[2].data[offset];
+        tg = this.imagesData[2].data[offset + 1];
+        tb = this.imagesData[2].data[offset + 2];
         //
         var diff  = Math.abs(pr-cr) + Math.abs(pg-cg) + Math.abs(pb-cb);
         var diff2 = Math.abs(tr-pr) + Math.abs(tg-pg) + Math.abs(tb-pb);

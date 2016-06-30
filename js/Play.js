@@ -19,6 +19,8 @@ App.Play = {
         })
     },
     start: function() {
+        App.Camera.init();
+        document.getElementById('videoDiv').style.display = "block";
         this.currentTimer = document.getElementById('current-timer');
         this.promptname   = document.getElementById('prompt-name');
         this.currentTimer.innerHTML = "00.00";
