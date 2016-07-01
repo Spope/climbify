@@ -10,6 +10,7 @@ var App =  {
         this.Edition.init();
         this.UI.init();
         this.Play.init();
+        this.Camera.init();
 
         this.path = new Path();
         this.currentMode = this.modes.EDITION;

@@ -19,7 +19,6 @@ App.Play = {
         })
     },
     start: function() {
-        App.Camera.init();
         document.getElementById('videoDiv').style.display = "block";
         this.currentTimer = document.getElementById('current-timer');
         this.promptname   = document.getElementById('prompt-name');
@@ -44,34 +43,36 @@ App.Play = {
     },
 
     bindKeyboard: function(e) {
-        var way;
         if (e.keyCode == 40) {
             //DOWN
             App.Play.selectPrevious();
-            way = 0;
         }
         if (e.keyCode == 38) {
             //UP
             App.Play.selectNext();
-            way = 1;
         }
     },
 
-    selectNext: function() {
-        if (this.selected < App.path.points.length) {
+    selectNext: function(camera) {
+        if (this.selected < App.path.points.length || camera) {
             App.Drawer.unSelectPoint(this.selected);
             App.Drawer.donePoint(this.selected);
             this.selected++;
             App.Drawer.selectPoint(this.selected);
         }
 
-        if (this.selected == 2) {
-                this.startTimer();
-            }
 
-        if (this.selected == App.path.points.length) {
+        if (this.selected == 2) {
+            this.startTimer();
+        }
+
+        var test = this.selected;
+        if (camera === true) {
+            test--;
+        }
+        if (test == App.path.points.length) {
             App.Play.finish();
-            App.Drawer.donePoint(this.selected);
+            App.Drawer.donePoint(test);
         }
     },
 
@@ -103,6 +104,7 @@ App.Play = {
         App.Play.stopTimer(false);
 
         App.Play.showName();
+        App.Camera.stopDetection();
     },
 
     showName: function() {
@@ -140,6 +142,8 @@ App.Play = {
         App.Drawer.restart();
         this.selected = 1;
         App.Drawer.selectPoint(this.selected);
+        App.Camera.stopDetection();
+        App.Camera.startDetection();
     },
 
     stopTimer: function(reset) {
