@@ -102,7 +102,7 @@ App.Camera = {
         //
         var x, y;
 
-        var index = App.play.selected - 1;
+        var index = App.Play.selected - 1;
         var x1 = this.points[index].x - (this.areaSize / 2);
         var x2 = x1 + this.areaSize;
         var y1 = this.points[index].y - (this.areaSize / 2);
