@@ -1,19 +1,21 @@
 App.Drawer = {
     svg: null,
+    points: null,
     lines: {},
     circles: {},
 
     params: {
         color: '123, 201, 255',
         colorH: '#7BC9FF',
-        radius: 16
+        radius: 20
     },
 
     init: function() {
         this.svg = document.getElementById('svg');
+        this.points = document.getElementById('points');
 
-        this.svg.width = window.innerWidth;
-        this.svg.height = window.innerHeight;
+        this.svg.width = this.points.width = window.innerWidth;
+        this.svg.height = this.points.height = window.innerHeight;
 
         this.reset();
     },
@@ -40,8 +42,7 @@ App.Drawer = {
 
         var circle = new App.point(point);
         this.circles[point.i] = circle;
-        this.svg.appendChild(circle.qu);
-        this.svg.appendChild(circle.g);
+        this.points.appendChild(circle.el);
     },
 
     getLine: function (i) {
@@ -54,7 +55,7 @@ App.Drawer = {
     reset: function() {
         this.resetAllElByTagName('g');
         this.resetAllElByTagName('path');
-        this.resetAllElByTagName('circle');
+        this.points.innerHTML = "";
 
         var lineG = document.createElementNS('http://www.w3.org/2000/svg','g');
         //var circleG = document.createElementNS('http://www.w3.org/2000/svg','g');

@@ -11,5 +11,13 @@ var Tools = {
         var re = new RegExp(' ' + classToRemove, "g");
         classname = classname.replace(re, '');
         el.setAttribute('class', classname);
+    },
+
+    domify: function(str) {
+
+        var div = document.createElement('div');
+        div.innerHTML = str;
+
+        return div.childNodes[0];
     }
 }

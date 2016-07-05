@@ -55,7 +55,7 @@ App.Edition = {
         event.stopPropagation();
 
         App.Edition.selectedElement = event.target.parentElement;
-        var id = App.Edition.selectedElement.querySelector('text').innerHTML;
+        var id = App.Edition.selectedElement.getAttribute('data-id');
         App.Edition.selectedId = id;
 
         var line1 = svg.getElementById('line-' + id);
@@ -64,7 +64,7 @@ App.Edition = {
         App.Edition.lines[0] = App.Drawer.getLine(id);
         App.Edition.lines[1] = App.Drawer.getLine(parseInt(id) + 1);
         App.Edition.selected = App.Drawer.getCircle(id);
-        App.Edition.selected.hideQu();
+        //App.Edition.selected.hideQu();
 
         document.addEventListener('mousemove', App.Edition.moveElement);
         document.addEventListener('touchmove', App.Edition.moveElement);
@@ -123,7 +123,7 @@ App.Edition = {
         document.removeEventListener('mouseup', App.Edition.dropElement);
         document.removeEventListener('touchend', App.Edition.dropElement);
 
-        App.Edition.selected.showQu();
+        //App.Edition.selected.showQu();
         App.Edition.selectedElement = null;
         App.Edition.selected = null;
         App.Edition.selectedId = null;

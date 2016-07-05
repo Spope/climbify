@@ -9,7 +9,7 @@ App.Slider = {
         event: null
     },
     params: {
-        min: 11,
+        min: 20,
         max: 35,
         pickerW: 40,
         width: 150
